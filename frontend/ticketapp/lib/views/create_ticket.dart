@@ -16,6 +16,7 @@ class _CreateTicketState extends State<CreateTicket> {
   var _description = "";
   String? _status = "New";
   var _tickets = [];
+  bool _isLoading = false;
 
   Future<void> createTicket(String title, String desc, String status) async {
     print('title ${_title}');
@@ -27,7 +28,9 @@ class _CreateTicketState extends State<CreateTicket> {
       setState(() {});
     } catch (e) {
       _tickets = [];
-      setState(() {});
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -39,20 +42,21 @@ class _CreateTicketState extends State<CreateTicket> {
           backgroundColor: const Color(Constants.APPCOLOR),
         ),
         body: SafeArea(
-            child: Center(
-                child: Column(
-          children: [
-            SizedBox(height: 20),
-            Text(
-              'Create Ticket',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
+          child: Center(
+              child: SingleChildScrollView(
+            child: Column(children: [
+              SizedBox(height: 20),
+              Text(
+                'Create Ticket',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
               ),
-            ),
-            Padding(
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
+                child: SingleChildScrollView(
+                    child: Column(
                   children: [
                     SizedBox(height: 20),
                     TextField(
@@ -123,7 +127,9 @@ class _CreateTicketState extends State<CreateTicket> {
                     ),
                   ],
                 )),
-          ],
-        ))));
+              )
+            ]),
+          )),
+        ));
   }
 }

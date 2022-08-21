@@ -27,7 +27,8 @@ class _EditTicketState extends State<EditTicket> {
   var _title;
   var _description;
   String? _status;
-  var _tickets = [];
+  List<Ticket> _tickets = [];
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -36,6 +37,7 @@ class _EditTicketState extends State<EditTicket> {
     _status = widget.status;
     _title = widget.title;
     _description = widget.description;
+    _isLoading = false;
   }
 
   Future<void> EditTicket(String title, String desc, String status) async {
@@ -49,14 +51,12 @@ class _EditTicketState extends State<EditTicket> {
         editCloseDate = true;
       }
       print('id ${widget.id.toString()}');
-      _tickets = await TicketApi.EditTicket(widget.id.toString(),
-          title.toString(), desc.toString(), status.toString(), editCloseDate);
+      await TicketApi.EditTicket(widget.id.toString(), title.toString(),
+          desc.toString(), status.toString(), editCloseDate);
       print('edit okay');
       setState(() {});
     } catch (e) {
       _tickets = [];
-      print('edit failed');
-      setState(() {});
     }
   }
 

@@ -30,7 +30,6 @@ class TicketApi {
       String status, bool editCloseDate) async {
     DateTime now = new DateTime.now();
     var map = <String, dynamic>{};
-    print('$id $title $desc $status');
     map['title'] = title;
     map['description'] = desc;
     map['status'] = status;

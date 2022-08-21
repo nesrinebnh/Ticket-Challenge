@@ -40,34 +40,37 @@ class _HomeState extends State<Home> {
         backgroundColor: const Color(Constants.APPCOLOR),
       ),
       backgroundColor: Colors.white,
-      body: Column(
-        children: [
-          const SizedBox(height: 20),
-          Expanded(
-            child: ListView.builder(
-                itemCount: _tickets.length,
-                itemBuilder: (context, index) {
-                  DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
-                  var close = '';
-                  if (_tickets[index].close_date == null) {
-                    close = '';
-                  } else {
-                    close = dateFormat.format(_tickets[index].close_date);
-                  }
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : Column(
+              children: [
+                const SizedBox(height: 20),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: _tickets.length,
+                      itemBuilder: (context, index) {
+                        DateFormat dateFormat =
+                            DateFormat("yyyy-MM-dd HH:mm:ss");
+                        var close = '';
+                        if (_tickets[index].close_date == null) {
+                          close = '';
+                        } else {
+                          close = dateFormat.format(_tickets[index].close_date);
+                        }
 
-                  var open = dateFormat.format(_tickets[index].open_date);
-                  return TicketCard(
-                    title: _tickets[index].title,
-                    description: _tickets[index].description,
-                    status: _tickets[index].status,
-                    openDate: open,
-                    closeDate: close,
-                    id: _tickets[index].id.toString(),
-                  );
-                }),
-          ),
-        ],
-      ),
+                        var open = dateFormat.format(_tickets[index].open_date);
+                        return TicketCard(
+                          title: _tickets[index].title,
+                          description: _tickets[index].description,
+                          status: _tickets[index].status,
+                          openDate: open,
+                          closeDate: close,
+                          id: _tickets[index].id.toString(),
+                        );
+                      }),
+                ),
+              ],
+            ),
       bottomNavigationBar: SizedBox(height: 35),
       floatingActionButton: FloatingActionButton(
         onPressed: () => {
