@@ -26,6 +26,7 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> getTickets() async {
+    print('get ticket');
     _tickets = await TicketApi.getTickets();
     setState(() {
       _isLoading = false;
@@ -34,6 +35,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    getTickets();
     return Scaffold(
       appBar: AppBar(
         title: const Text(Constants.APPNAME),
